@@ -112,7 +112,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{Bobby Drops Tables Report}
+\title{An Exploration of Server Security and Web Vulnerabilities on Raspberry Pi}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -171,12 +171,29 @@
 
 
 \section{Introduction}
-Um, hi?
 
+%Background
+Raspberry Pi has become one of the foremost names for their wide array of miniature general-purpose computers. These
+devices are used ubiquitously across industrial, commercial, and home scales for automation, IoT, and general purpose computing.
+Their prevelance and reliability also makes them a popular target for cyberattacks. The exploitation of a Raspberry Pi could
+lead to the downfall of an entire cyber-physical system, especially if not configured properly. 
+
+%Current Problems
+Our goal was to explore the security considerations of Raspberry Pi when deploying the device for a common task, in our
+case we chose web server hosting...
+
+Something something device security vs software security (i.e. motivating both the SSH hardening and the apache attacks).
+
+%Current Solutions -> i.e. what has already been done, but nothing we've done is novel so be sure not to frame our work as somehow improving on current solutions 
+
+%Contributions
+% Server Hardening
+% Log4Shell Replication
+% Examination of the Security Flaws that allowed log4shell to occur
 
 
 \section{Background}
-The Raspberry Pi 3 Model B that we used is a microprocessor with the Raspbian operating 
+The Raspberry Pi 3 Model B that we used is an embedded or single board computer with the Raspbian operating 
 system installed. As an IoT device, it is a capable of a wide array of actions (such as hosting
 a web server) but it is also subject to many flaws and vulnerabilities that make it easy for 
 malevolent actors to carry out a suite of attacks against it. Various attacks have been
@@ -213,22 +230,71 @@ the malicious code could cause anything from data leaks to server shutdowns.
 
 
 
-
-
-
-
 \section{Related Work}
 \label{sec:relatedWork}
 
 
+\section{Ethical Statement}
+
+All attacks were performed only using machines owned and operated by the authors. The devices were connected to
+CalPoly's eduroam network. However, no regular network traffic was disrupted, harmed, or observerd during any activities performed
+over the course of this study. Additionally, the authors worked primarily to replicate known strategies for exploitation of a downpatched
+Log4j, all of which have been fixed in any modern version of Java and the Log4j package from the last 5 years. 
 
 \section{System Design}
 
+This section offers description and details about our Raspberry Pi server configuration, attacker resources, and 
+our specific exploit chain. Code for the main components of our setup and attack can be found in our archive, submitted
+in tandem with this report. 
 
+\subsection{SSH Hardening}
+
+Prior to launching the Log4Shell attack, we took steps to close off easier avenues for attack on the Raspberry Pi, a
+process commonly known as "server hardening". These steps are detailed from the tutorials followed, provided here [CITE HERE] and
+here [CITE HERE]. However, we also offer brief description of the motivation behind these steps.
+
+First and foremost, all SSH public keys of the authors were added to the authorized key list of the Pi. This allowed usage
+to disable SSH Authentication via any means besides public key authentication. This is desireable due to the favorable 
+security benefits offered by public key cryptography which are not present in the default, password-based login. Namely,
+passwords are often crackable when configured lazily, phish from users, or present within known leaked password corpora. 
+Our Raspberry Pi user credentials were no different, using the default username/password for a single sudo-enabled user.
+
+The SSH port for the Raspberry Pi was also changed to 4707, away from the default of 22. This was done to prevent  
+port scanner attacks, wherein common and default network ports on a machine are targetted by attackers for potential weakpoints.
+Login as root was entirely disabled, instead opting to do all administrative tasks from our sudo-enabled user account. 
+Full control when acting as the root user itself can be risky, and for our purposes it was never a necessary exposure.
+Other server hardening tricks such as disabling outdated/insecure SSH protocols, firewalling, IP-banning, and whitelisting,
+all of which are suggested in [CITE], were examined but not implemented on our server for the sake of time.
+
+\subsection{Raspberry Pi Apache Server}
+
+Apache2
+
+Maven project
+
+Springboot and Log4j
+
+\subsection{Attacker Servers}
+
+OpenLDAP
+
+Inclusion of Java Schema
+
+HTTP Server 
+
+\subsection{Attack Execution}
+
+Java Factory Exploit Object 
+
+Process + attack. (Include image of the webpage with exploit string)
 
 \section{Lessons Learned}
 
+The dangers of Log4J, defenses provided to prevent our exploit chain. 
 
+The struggles of downpatching Java. 
+
+Resources on finding exploit strategies. Resources on finding (and trusting) exploit toolchains (i.e. the vulnerability testing repo).
 
 \section{Conclusion}
 
