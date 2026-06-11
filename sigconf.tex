@@ -232,6 +232,26 @@ the malicious code could cause anything from data leaks to server shutdowns.
 
 \section{Related Work}
 \label{sec:relatedWork}
+The main article that inspired this investigation of ours was a set of experiments run by researchers
+Arreaga et al., in which they tested three different types of attacks (MITM, backdoor, and DoS) on a
+Raspberry Pi 3 Model B device with the Raspbian operating system. The researchers also performed 
+the same suite of attacks on a VM that had the Windows 10 OS installed in order to compare the times
+for the attacks to be carried out. The goal of their research, like ours, was to highlight the major security
+flaws present in IoT devices, which are becoming more and more widely used. The authors note that
+with billions of IoT devices estimated to be in use by 2025, the opportunities for attackers to carry out
+devastating attacks against these devices (and thus the frameworks and systems they support) will
+only grow \cite{ARREAGA2023223}.
+
+As for the results, the researchers were able to successfully execute all three attacks on both machines.
+The total time to carry out the MITM and DoS attacks (which includes the setup and execution times) was
+the same across both devices, but it was quicker to carry out the backdoor attack against the Raspberry Pi
+than the Windows 10 VM. The authors note that the Raspberry Pi lacks "built-in virus and intrusion detection 
+software," software which the Windows 10 VM had, making it relatively easier to attack the Pi. Their findings
+highlight the treatment of security as a bonus feature or add-on with IoT devices, which (when considering the
+widespread usage of these devices) can lead to disastrous consequences the likes of which no one has seen
+before (including data breaches, service disruptions and shutdowns, and more) \cite{ARREAGA2023223}.
+
+
 
 
 \section{Ethical Statement}
@@ -297,6 +317,11 @@ The struggles of downpatching Java.
 Resources on finding exploit strategies. Resources on finding (and trusting) exploit toolchains (i.e. the vulnerability testing repo).
 
 \section{Conclusion}
+
+\section{Acknowledgements}
+The authors would like to thank Professor Stephen Beard for not only helping and directing us with this project
+but also for making CSC-524 an all-around fun and interesting class to be in. This class would not have been
+the same without him.
 
 
 
