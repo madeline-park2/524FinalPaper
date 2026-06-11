@@ -194,7 +194,7 @@ Something something device security vs software security (i.e. motivating both t
 
 \section{Background}
 The Raspberry Pi 3 Model B that we used is an embedded or single board computer with the Raspbian operating 
-system installed. As an IoT device, it is a capable of a wide array of actions (such as hosting
+system installed. As an IoT device, it is capable of a wide array of actions (such as hosting
 a web server) but it is also subject to many flaws and vulnerabilities that make it easy for 
 malevolent actors to carry out a suite of attacks against it. For example, the default username
 and password of a user on the Raspbian operating system is "pi" and "raspberry", respectively. 
@@ -281,7 +281,7 @@ here [CITE HERE]. However, we also offer brief description of the motivation beh
 First and foremost, all SSH public keys of the authors were added to the authorized key list of the Pi. This allowed usage
 to disable SSH Authentication via any means besides public key authentication. This is desireable due to the favorable 
 security benefits offered by public key cryptography which are not present in the default, password-based login. Namely,
-passwords are often crackable when configured lazily, phish from users, or present within known leaked password corpora. 
+passwords are often crackable when configured lazily, phished from users, or present within known leaked password corpora. 
 Our Raspberry Pi user credentials were no different, using the default username/password for a single sudo-enabled user.
 
 The SSH port for the Raspberry Pi was also changed to 4707, away from the default of 22. This was done to prevent  
