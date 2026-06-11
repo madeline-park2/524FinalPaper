@@ -293,11 +293,13 @@ all of which are suggested in [CITE], were examined but not implemented on our s
 
 \subsection{Raspberry Pi Apache Server}
 
-Apache2
+Our system was designed with three distinct pieces: an Apache server running the frontend static website, a Maven project for package imports and project structure, and a Spring Boot backend that connected the webpage inputs to the logging channel.
 
-Maven project
+Our main motivation for using Apache to host a web page was that the page would be on a static IP address that we could access from outside of the Raspberry Pi. Thus, our Apache server is very generic. We followed a tutorial to set it up \cite{Islam}, and the only deviations were editing the HTML to give us input boxes for username and password, and adding a CSS file to make the page look more complete. 
 
-Springboot and Log4j
+We chose to create a Maven project in order to use Log4j because the recommended way to use Log4j was through a package manager like Maven or Gradle, and we had more prior experience with Maven. We followed the Maven in 5 Minutes tutorial \cite{Maven} in order to set up the project, and then began editing the POM file to add the necessary dependencies for logging and our backend. We also made edits to App.java, the main Java file created by the Maven project initialization, in order to test initial logging and set up a Spring Boot application.
+
+In our App.java, we initialized Spring Boot with the @SpringBootApplication decorator and also ran the Spring application in main. The backend uses a REST API to communicate with our web page, fielding inputs into the Log4j logging system and printing them to standard out. One of the design choices that we made in order for the Log4Shell attack to work was we did not sanitize our inputs.  
 
 \subsection{Attacker Servers}
 
