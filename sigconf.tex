@@ -179,12 +179,46 @@ Um, hi?
 The Raspberry Pi 3 Model B that we used is a microprocessor with the Raspbian operating 
 system installed. As an IoT device, it is a capable of a wide array of actions (such as hosting
 a web server) but it is also subject to many flaws and vulnerabilities that make it easy for 
-malevolent actors to carry out a suite of attacks against it. 
+malevolent actors to carry out a suite of attacks against it. Various attacks have been
+demonstrated against the device to highlight its fragile security framework, including
+Man-in-the-Middle (MITM), backdoor, and DoS attacks \cite{ARREAGA2023223}. We
+will delve further into these experiments in section \ref{sec:relatedWork}.
+
+For this particular experiment that we ran, we focused on an attack that exploited
+a vulnerability with Log4j. Log4j is a library that is used to create log messages that
+track all sorts of events \cite{Holla}. It enjoys widespread usage across many different
+applications, including web frameworks and even the hit video game \textit{Minecraft}
+\cite{Chierici}. Due to the sheer amount of products and services that were using Log4j,
+mass panic and alarm ensued when a vulnerability was discovered within it in December
+2021, with this vulnerability being called Log4Shell. The Log4Shell exploit allowed attackers 
+to carry out malicious code on targeted servers \cite{Holla}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{LDAPAttack}
+    \caption{Layout of the LDAP Attack on Log4j \cite{Holla}.}
+    \label{fig:ldapAttack}
+\end{figure}
+
+Figure \ref{fig:ldapAttack} summarizes the attack that we conducted but we will go over the details
+here. Versions of Log4j with the Log4Shell incorrectly handle Java Naming and Directory Interface (JNDI)
+requests. JNDI requests are used as lookups for particular resources; these JNDI requests use URLs
+that lead to a different server (such as an LDAP or DNS server) \cite{INCIBE}. Malevolent actors could 
+thus set up their own server and then send a log message to a victim application server that uses a version 
+of Log4j with the Log4Shell exploit. The log message sent by the attacker is a JNDI lookup that contains a URL
+that directs the user to their server. Upon receiving this message, the application server has Log4j go 
+through it. Upon performing the JNDI lookup, code from the attacker's own server is executed on the
+victim server, leading to potentially catastrophic results \cite{Holla}. Depending on the attacker's motive,
+the malicious code could cause anything from data leaks to server shutdowns.
+
+
+
 
 
 
 
 \section{Related Work}
+\label{sec:relatedWork}
 
 
 
