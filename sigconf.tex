@@ -196,10 +196,12 @@ Something something device security vs software security (i.e. motivating both t
 The Raspberry Pi 3 Model B that we used is an embedded or single board computer with the Raspbian operating 
 system installed. As an IoT device, it is a capable of a wide array of actions (such as hosting
 a web server) but it is also subject to many flaws and vulnerabilities that make it easy for 
-malevolent actors to carry out a suite of attacks against it. Various attacks have been
-demonstrated against the device to highlight its fragile security framework, including
-Man-in-the-Middle (MITM), backdoor, and DoS attacks \cite{ARREAGA2023223}. We
-will delve further into these experiments in section \ref{sec:relatedWork}.
+malevolent actors to carry out a suite of attacks against it. For example, the default username
+and password of a user on the Raspbian operating system is "pi" and "raspberry", respectively. 
+Failing to change these credentials makes it quite simple for an attack to gain access to one's device
+\cite{ARREAGA2023223}. Various attacks have been demonstrated against the device to highlight its 
+fragile security framework, including Man-in-the-Middle (MITM), backdoor, and DoS attacks \cite{ARREAGA2023223}. 
+We will delve further into these experiments in section \ref{sec:relatedWork}.
 
 For this particular experiment that we ran, we focused on an attack that exploited
 a vulnerability with Log4j. Log4j is a library that is used to create log messages that
@@ -249,7 +251,10 @@ than the Windows 10 VM. The authors note that the Raspberry Pi lacks "built-in v
 software," software which the Windows 10 VM had, making it relatively easier to attack the Pi. Their findings
 highlight the treatment of security as a bonus feature or add-on with IoT devices, which (when considering the
 widespread usage of these devices) can lead to disastrous consequences the likes of which no one has seen
-before (including data breaches, service disruptions and shutdowns, and more) \cite{ARREAGA2023223}.
+before (including data breaches, service disruptions and shutdowns, and more). The authors recommend
+some potential fixes to protect the Pi from these attacks, such as using a secure HTTPS protocol and limiting
+traffic from a host, but they also warn about other potential attacks (such as DNS cache poisoning and
+TCP sequence attacks) \cite{ARREAGA2023223}.
 
 
 
