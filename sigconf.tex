@@ -262,7 +262,7 @@ TCP sequence attacks) \cite{ARREAGA2023223}.
 \section{Ethical Statement}
 
 All attacks were performed only using machines owned and operated by the authors. The devices were connected to
-CalPoly's eduroam network. However, no regular network traffic was disrupted, harmed, or observerd during any activities performed
+CalPoly's eduroam network. However, no regular network traffic was disrupted, harmed, or observed during any activities performed
 over the course of this study. Additionally, the authors worked primarily to replicate known strategies for exploitation of a downpatched
 Log4j, all of which have been fixed in any modern version of Java and the Log4j package from the last 5 years. 
 
@@ -279,13 +279,13 @@ process commonly known as "server hardening". These steps are detailed from the 
 here [CITE HERE]. However, we also offer brief description of the motivation behind these steps.
 
 First and foremost, all SSH public keys of the authors were added to the authorized key list of the Pi. This allowed usage
-to disable SSH Authentication via any means besides public key authentication. This is desireable due to the favorable 
+to disable SSH Authentication via any means besides public key authentication. This is desirable due to the favorable 
 security benefits offered by public key cryptography which are not present in the default, password-based login. Namely,
 passwords are often crackable when configured lazily, phished from users, or present within known leaked password corpora. 
 Our Raspberry Pi user credentials were no different, using the default username/password for a single sudo-enabled user.
 
 The SSH port for the Raspberry Pi was also changed to 4707, away from the default of 22. This was done to prevent  
-port scanner attacks, wherein common and default network ports on a machine are targetted by attackers for potential weakpoints.
+port scanner attacks, wherein common and default network ports on a machine are targeted by attackers for potential weakpoints.
 Login as root was entirely disabled, instead opting to do all administrative tasks from our sudo-enabled user account. 
 Full control when acting as the root user itself can be risky, and for our purposes it was never a necessary exposure.
 Other server hardening tricks such as disabling outdated/insecure SSH protocols, firewalling, IP-banning, and whitelisting,
