@@ -1545,8 +1545,7 @@
   \fi
 }
 \if@ACM@journal\else
-\acmConference[Conference'17]{ACM Conference}{July 2017}{Washington,
-  DC, USA}%
+\acmConference[Conference'26]{ACM Conference}{June 2026}{San Luis Obispo, California, USA}%
 \fi
 \def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
 \acmBooktitle{}
@@ -2909,7 +2908,7 @@
        \ifx\@acmEditors\@empty\textit{.}\else
          \andify\@acmEditors\textit{, }\@acmEditors~\@editorsAbbrev.%
        \fi\
-       ACM, New York, NY, USA%
+       ACM, San Luis Obispo, CA, USA%
          \@article@string\unskip, \ref{TotPages}~\@pages@word.
     \fi
   \fi
