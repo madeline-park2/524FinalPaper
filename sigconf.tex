@@ -390,6 +390,14 @@ time what the ultimate solution is.
 
 \section{Conclusion}
 
+This project explored the intersection of IoT and Web Security through an exploit-focused lens of the Log4Shell attack.
+The Raspberry Pi 3 served as an isolated but fully operational testbed for server hosting. Our SSH server hardening
+demonstrated considerations of access control for IoT devices, while the Apache server hosting and subsequent exploit
+encompassed both desirebale user function for the Raspberry Pi as a device (by hosting a webpage on the local network) 
+and the consequences of web vulnerabilities which enable full-system Remote Code Execution. The replication of the Log4Shell
+attack showed that a vulnerability on one component of our Raspberry Pi server lead to the compromise of the entire device 
+through a reverse shell. 
+
 \section{Acknowledgements}
 The authors would like to thank Professor Stephen Beard for not only helping and directing us with this project
 but also for making CSC-524 an all-around fun and interesting class to be in. This class would not have been
