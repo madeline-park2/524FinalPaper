@@ -296,7 +296,8 @@ set up the project, and then began editing the POM file to add the necessary dep
 We also made edits to App.java, the main Java file created by the Maven project initialization, in order to test initial 
 logging and set up a Spring Boot application.
 
-In our App.java, we initialized Spring Boot with the @SpringBootApplication decorator and also ran the Spring application in main. 
+In our App.java, we initialized Spring Boot with the \texttt{@Spring
+BootApplication} decorator and also ran the Spring application in main. 
 The backend uses a REST API to communicate with our web page, fielding inputs into the Log4j logging system and printing them to standard out. 
 One of the design choices that we made in order for the Log4Shell attack to work was we did not sanitize our inputs. This meant that whatever
 inputs were sent through the frontend web page were directly ported through the backend to Log4j. Although this is now thought of as bad practice,
