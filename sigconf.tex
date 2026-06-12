@@ -185,14 +185,18 @@ test the Pi against several different types of attacks (such as the ones mention
 constraints, we decided to focus on one notorious vulnerability: Log4Shell. This involved setting up an LDAP server that acted
 as the attacker's server, targeting the Pi's Apache server.
 
-Something something device security vs software security (i.e. motivating both the SSH hardening and the apache attacks).
 
 %Current Solutions -> i.e. what has already been done, but nothing we've done is novel so be sure not to frame our work as somehow improving on current solutions 
-
+In this paper, we offer the following contributions:
 %Contributions
 % Server Hardening
 % Log4Shell Replication
 % Examination of the Security Flaws that allowed log4shell to occur
+\begin{itemize}
+  \item An examination of IoT device security through SSH Server Hardening on Raspberry Pi 3
+  \item A replication and partial toolchain for exploitation of the Log4Shell vulnerability on an Apache2 web server.
+  \item An analysis of the vulnerabilities present in Log4J enabling our exploit chain.
+\end{itemize}
 
 
 \section{Background}
@@ -306,17 +310,42 @@ In our App.java, we initialized Spring Boot with the @SpringBootApplication deco
 
 \subsection{Attacker Servers}
 
-OpenLDAP
+In our simulation, our attacker hosted a Lightweight Directory Access Protocol server to serve malicious responses to
+vulnerable JNDI requests from Log4J. OpenLDAP was installed via the apt repository on our attacker's Debian 12 laptop.
+A domain name "exampleproject.com" was assigned as a reference for the attacker's machine IP address.    
+A java.ldif was added to the LDAP schema to allow lookups to javaObject, javaCodebase, javaClassName, javaFactory, and javaNamingReference.
+This schema was necessary for JNDI to be able to receive exploit payloads when querying the LDAP server.
 
-Inclusion of Java Schema
-
-HTTP Server 
+The attacker also hosted an HTTP server on port 8000 via Python 3.12's http.server module. This served GET requests directly
+from the attacker's file hierarchy to any node on the same network. This server is resolves the request from the 
+LDAP schema to deliver the payload back to the original JNDI request. There may have been a way to host the exploit.jar file
+directly within the LDAP server instead of resolving the request through a local HTTP server, akin to the depiction in \ref{fig:ldapAttack}, 
+but this method worked ammicably as well. 
 
 \subsection{Attack Execution}
 
-Java Factory Exploit Object 
+Log4J had two critical vulnerabilities leading to the Remote Code Execution (RCE). The first is execution of unsantized user input
+for the purposes of logging. On the Apache server's webpage, there was a user name and password field, that when submitted to
+would take the user to a new page greeting them by name, and update the logs to include the new login attempt. However, any 
+string included in the username field would be executed as though included in the Log4J format string. This meant that 
+\texttt{\$\{text\}} strings would be evaluated. This could be used for banal things, such as \texttt{\$\{jvm:version\}} would 
+add the current Java version within the logged entry. However, JNDI lookups were also available within these strings, allowing the 
+attacker to force the server to resolve a resource from arbitrary destinations. This lack of santization was a default 
+in Log4j 2.14.1.
 
-Process + attack. (Include image of the webpage with exploit string)
+The second vulnerability was another dangerous default prior to the release of Log4Shell. The system property
+\texttt{com.sun.jndi.ldap.
+object.trustURLCodebase} was set to \texttt{true}. In our Apache server, we had to set this 
+condition manually in order to make the attack possible, despite running versions of Java and Log4J older than the patch
+of the Log4Shell vulnerabilities. We are not sure why this is, but are still confident that at some point in the past,
+this was a default. The danger of this option is allowing all LDAP servers requested for JNDI lookup to have trusted code 
+automatically. By trusting the code automatically, it is executed immediately upon resource retrieval. This component, combined 
+with the first vulnerability, completes an exploit chain that allows any attacker to set up an LDAP server and point
+an Apache server to execute an arbitrary payload.   
+
+The attack payload we chose was a Java class which implemented the ObjectFactory interface. Upon retrieval by the JNDI query, the
+
+
 
 \section{Lessons Learned}
 
