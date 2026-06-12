@@ -368,12 +368,18 @@ to pinpoint what the takeaway here exactly is. We knew we wanted a downgraded ve
 several different strategies that seemed reasonable to us, only for those to fail. But at least now we know for next
 time what the ultimate solution is.
 
+We find the development platform of Raspberry Pi to be very enjoyable to work with, and would enjoy another project in the
+future exploring vulnerabilities and server-side defenses. For example, a future project could involve pivoting the Raspberry Pi
+from web server-hosting to a true IoT device purpose, such as connected to a camera, sensor network, lighting system, and 
+make a mini smart home system of our own. From there we could replicate existing smart home attacks, or discover what 
+common defenses are put in place when connecting IoT devices together.  
+
 \section{Conclusion}
 
 This project explored the intersection of IoT and Web Security through an exploit-focused lens of the Log4Shell attack.
 The Raspberry Pi 3 served as an isolated but fully operational testbed for server hosting. Our SSH server hardening
 demonstrated considerations of access control for IoT devices, while the Apache server hosting and subsequent exploit
-encompassed both desirebale user function for the Raspberry Pi as a device (by hosting a webpage on the local network) 
+encompassed both desirable user function for the Raspberry Pi as a device (by hosting a webpage on the local network) 
 and the consequences of web vulnerabilities which enable full-system Remote Code Execution. The replication of the Log4Shell
 attack showed that a vulnerability on one component of our Raspberry Pi server lead to the compromise of the entire device 
 through a reverse shell. 
