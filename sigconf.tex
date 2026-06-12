@@ -367,11 +367,16 @@ a powerful enough technique to perform reconnaissance and privilege escalation, 
 
 \section{Lessons Learned}
 
-The dangers of Log4J, defenses provided to prevent our exploit chain. 
+The dangers of Log4J, defenses provided to prevent our exploit chain.
+We learned that Log4J can be potentially quite dangerous, as we were able to write a reverse shell with not a ton of setup. It seems
+like the best defenses are just to be up to date on software. The specific vulnerability we exploited was removed starting in Log4J version
+2.17, but there were various security patches along the way as well. Additionally, having proper input hygiene would also have prevented
+the attack, or at least made it much more difficult. 
 
-The struggles of downpatching Java. 
-
-Resources on finding exploit strategies. Resources on finding (and trusting) exploit toolchains (i.e. the vulnerability testing repo).
+It was nearly impossible to find resources about how to exploit Log4J, as it is a CVE 10 vulnerability. It was quite easy to
+learn about what the attack was, however, so most of our time was spent reverse-engineering the attack from the resources available to us.
+There were a handful of repositories online that claimed to test for and/or exploit Log4J, but we didn't want to run them locally and
+it was difficult to run them on a more protected tool such as Google Colab, as many of them were OS dependent or required Docker.
 
 One major pain of this project was the arduous adventure to downgrade Java. The initial version of Java that was on
 the Pi was openJDK 25, but we wanted to downgrade it to Java 8 since we believed that would have made the attack
