@@ -194,8 +194,8 @@ In this paper, we offer the following contributions:
 % Examination of the Security Flaws that allowed log4shell to occur
 \begin{itemize}
   \item An examination of IoT device security through SSH Server Hardening on Raspberry Pi 3
-  \item A replication and partial toolchain for exploitation of the Log4Shell vulnerability on an Apache2 web server.
-  \item An analysis of the vulnerabilities present in Log4J enabling our exploit chain.
+  \item A replication and partial toolchain for exploitation of the Log4Shell vulnerability on an Apache2 web server
+  \item An analysis of the vulnerabilities present in Log4J enabling our exploit chain
 \end{itemize}
 
 
@@ -356,8 +356,13 @@ automatically. By trusting the code automatically, it is executed immediately up
 with the first vulnerability, completes an exploit chain that allows any attacker to set up an LDAP server and point
 an Apache server to execute an arbitrary payload.   
 
-The attack payload we chose was a Java class which implemented the ObjectFactory interface. Upon retrieval by the JNDI query, the
-
+The attack payload we chose was a Java class which implemented the ObjectFactory interface, aptly named ExploitFactory. Upon retrieval by the JNDI query, the
+ExploitFactory's getObjectInstance method performs two actions. First, using a PrintWriter, it writes a file to the home directory of the pi user
+with the message "you got pwned!" It then starts a ProcessBuilder executing /bin/bash taking and sending all inputs over TCP to port 31415 on
+the attacker's IP address. This is more commonly known as a reverse shell, as it allows the attacker, when listening on their chosen port,
+to interact with a bash shell on the Raspberry Pi's directory hierarchy despite not having the authentication or public keys registered on the device. 
+We note that no behaviors were performed that required root access from the Raspberry Pi. However, the reverse shell is certainly
+a powerful enough technique to perform reconnaissance and privilege escalation, allowing the attacker to do essentially whatever they wish. 
 
 
 \section{Lessons Learned}
