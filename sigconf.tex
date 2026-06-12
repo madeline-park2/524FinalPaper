@@ -157,7 +157,10 @@
 The Raspberry Pi is a miniature general-purpose computer that has found widespread usage in a variety of settings. It also suffers
 from an issue that is all too common with IoT devices: a vulnerable framework that makes it easy for malevolent actors to attack
 the device and systems that it supports. In our experiment, we set out to examine the Raspberry Pi 3's vulnerabilities by carrying out 
-SSH Server Hardening on the Pi, followed by executing the Log4Shell attack on an Apache server hosted on the Pi 3.
+SSH Server Hardening on the Pi, followed by executing the Log4Shell attack on an Apache server using Log4j, with the server being hosted 
+on the Pi 3. We encountered several issues, such as downgrading Java to Java 8 and setting up an LDAP server to carry out the Log4Shell 
+attack, but we were ultimately successful in executing the attack. While the Log4Shell vulnerability was patched soon after its discovery, our 
+experiment showcases how devastating it was, something exacerbated by the sheer number of services using Log4j.
 
 \end{abstract}
 
