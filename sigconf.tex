@@ -177,7 +177,7 @@ In this paper, we offer the following contributions:
 \begin{itemize}
   \item An examination of IoT device security through SSH Server Hardening on Raspberry Pi 3
   \item A replication and partial toolchain for exploitation of the Log4Shell vulnerability on an Apache2 web server
-  \item An analysis of the vulnerabilities present in Log4J enabling our exploit chain
+  \item An analysis of the vulnerabilities present in Log4j enabling our exploit chain
 \end{itemize}
 
 
@@ -237,7 +237,7 @@ As for the results, the researchers were able to successfully execute all three 
 The total time to carry out the MITM and DoS attacks (which includes the setup and execution times) was
 the same across both devices, but it was quicker to carry out the backdoor attack against the Raspberry Pi
 than the Windows 10 VM. The authors note that the Raspberry Pi lacks "built-in virus and intrusion detection 
-software," software which the Windows 10 VM had, making it relatively easier to attack the Pi. Their findings
+software," software which the Windows 10 VM had, making it relatively easier to attack the Pi \cite{ARREAGA2023223}. Their findings
 highlight the treatment of security as a bonus feature or add-on with IoT devices, which (when considering the
 widespread usage of these devices) can lead to disastrous consequences the likes of which no one has seen
 before (including data breaches, service disruptions and shutdowns, and more). The authors recommend
@@ -297,15 +297,15 @@ We also made edits to App.java, the main Java file created by the Maven project 
 logging and set up a Spring Boot application.
 
 In our App.java, we initialized Spring Boot with the @SpringBootApplication decorator and also ran the Spring application in main. 
-The backend uses a REST API to communicate with our web page, fielding inputs into the Log4J logging system and printing them to standard out. 
+The backend uses a REST API to communicate with our web page, fielding inputs into the Log4j logging system and printing them to standard out. 
 One of the design choices that we made in order for the Log4Shell attack to work was we did not sanitize our inputs. This meant that whatever
-inputs were sent through the frontend web page were directly ported through the backend to Log4J. Although this now thought of as bad practice,
+inputs were sent through the frontend web page were directly ported through the backend to Log4j. Although this is now thought of as bad practice,
 this was one of the necessary steps for the exploit to work.
 
 \subsection{Attacker Servers}
 
 In our simulation, our attacker hosted a Lightweight Directory Access Protocol server to serve malicious responses to
-vulnerable JNDI requests from Log4J. OpenLDAP was installed via the apt repository on our attacker's Debian 12 laptop.
+vulnerable JNDI requests from Log4j. OpenLDAP was installed via the apt repository on our attacker's Debian 12 laptop.
 A domain name "exampleproject.com" was assigned as a reference for the attacker's machine IP address.    
 A java.ldif was added to the LDAP schema to allow lookups to javaObject, javaCodebase, javaClassName, javaFactory, and javaNamingReference.
 This schema was necessary for JNDI to be able to receive exploit payloads when querying the LDAP server.
@@ -318,10 +318,10 @@ but this method worked ammicably as well.
 
 \subsection{Attack Execution}
 
-Log4J had two critical vulnerabilities leading to the Remote Code Execution (RCE). The first is execution of unsantized user input
+Log4j had two critical vulnerabilities leading to the Remote Code Execution (RCE). The first is execution of unsantized user input
 for the purposes of logging. On the Apache server's webpage, there was a user name and password field, that when submitted to
 would take the user to a new page greeting them by name, and update the logs to include the new login attempt. However, any 
-string included in the username field would be executed as though included in the Log4J format string. This meant that 
+string included in the username field would be executed as though included in the Log4j format string. This meant that 
 \texttt{\$\{text\}} strings would be evaluated. This could be used for banal things, such as \texttt{\$\{jvm:version\}} would 
 add the current Java version within the logged entry. However, JNDI lookups were also available within these strings, allowing the 
 attacker to force the server to resolve a resource from arbitrary destinations. This lack of santization was a default 
@@ -330,7 +330,7 @@ in Log4j 2.14.1.
 The second vulnerability was another dangerous default prior to the release of Log4Shell. The system property
 \texttt{com.sun.jndi.ldap.
 object.trustURLCodebase} was set to \texttt{true}. In our Apache server, we had to set this 
-condition manually in order to make the attack possible, despite running versions of Java and Log4J older than the patch
+condition manually in order to make the attack possible, despite running versions of Java and Log4j older than the patch
 of the Log4Shell vulnerabilities. We are not sure why this is, but are still confident that at some point in the past,
 this was a default. The danger of this option is allowing all LDAP servers requested for JNDI lookup to have trusted code 
 automatically. By trusting the code automatically, it is executed immediately upon resource retrieval. This component, combined 
@@ -348,14 +348,14 @@ a powerful enough technique to perform reconnaissance and privilege escalation, 
 
 \section{Lessons Learned}
 
-We learned that Log4J can be potentially quite dangerous, as we were able to write a reverse shell with not a ton of setup. It seems
-like the best defenses are just to be up to date on software. The specific vulnerability we exploited was removed starting in Log4J version
+We learned that Log4j can be potentially quite dangerous, as we were able to write a reverse shell with not a ton of setup. It seems
+like the best defenses are just to be up to date on software. The specific vulnerability we exploited was removed starting in Log4j version
 2.17, but there were various security patches along the way as well. Additionally, having proper input hygiene would also have prevented
 the attack, or at least made it much more difficult. 
 
-It was nearly impossible to find resources about how to exploit Log4J, as it is a CVE 10 vulnerability. It was quite easy to
+It was nearly impossible to find resources about how to exploit Log4j, as it is a CVE 10 vulnerability. It was quite easy to
 learn about what the attack was, however, so most of our time was spent reverse-engineering the attack from the resources available to us.
-There were a handful of repositories online that claimed to test for and/or exploit Log4J, but we didn't want to run them locally and
+There were a handful of repositories online that claimed to test for and/or exploit Log4j, but we didn't want to run them locally and
 it was difficult to run them on a more protected tool such as Google Colab, as many of them were OS dependent or required Docker.
 
 One major pain of this project was the arduous adventure to downgrade Java. The initial version of Java that was on
