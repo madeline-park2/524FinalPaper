@@ -282,8 +282,8 @@ in tandem with this report.
 \subsection{SSH Hardening}
 
 Prior to launching the Log4Shell attack, we took steps to close off easier avenues for attack on the Raspberry Pi, a
-process commonly known as "server hardening". These steps are detailed from the tutorials followed, provided here [CITE HERE] and
-here [CITE HERE]. However, we also offer brief description of the motivation behind these steps.
+process commonly known as "server hardening". These steps are detailed from the tutorials followed, provided here \cite{sshKeys} and
+here \cite{sshHardening}. However, we also offer brief description of the motivation behind these steps.
 
 First and foremost, all SSH public keys of the authors were added to the authorized key list of the Pi. This allowed usage
 to disable SSH Authentication via any means besides public key authentication. This is desirable due to the favorable 
@@ -296,7 +296,7 @@ port scanner attacks, wherein common and default network ports on a machine are 
 Login as root was entirely disabled, instead opting to do all administrative tasks from our sudo-enabled user account. 
 Full control when acting as the root user itself can be risky, and for our purposes it was never a necessary exposure.
 Other server hardening tricks such as disabling outdated/insecure SSH protocols, firewalling, IP-banning, and whitelisting,
-all of which are suggested in [CITE], were examined but not implemented on our server for the sake of time.
+all of which are suggested in \cite{sshHardening}, were examined but not implemented on our server for the sake of time.
 
 \subsection{Raspberry Pi Apache Server}
 
