@@ -179,8 +179,11 @@ Their prevalence and reliability also makes them a popular target for cyberattac
 lead to the downfall of an entire cyber-physical system, especially if not configured properly. 
 
 %Current Problems
-Our goal was to explore the security considerations of Raspberry Pi when deploying the device for a common task, in our
-case we chose web server hosting...
+Our goal was to explore the security considerations of the Raspberry Pi when deploying the device for a particular task: hosting a web
+server. We set up an Apache web server on the Pi alongside a Maven middleend and Springboot backend. Initially, we wanted to
+test the Pi against several different types of attacks (such as the ones mentioned in section \ref{sec:relatedWork}), but due to time
+constraints, we decided to focus on one notorious vulnerability: Log4Shell. This involved setting up an LDAP server that acted
+as the attacker's server, targeting the Pi's Apache server.
 
 Something something device security vs software security (i.e. motivating both the SSH hardening and the apache attacks).
 
@@ -322,6 +325,16 @@ The dangers of Log4J, defenses provided to prevent our exploit chain.
 The struggles of downpatching Java. 
 
 Resources on finding exploit strategies. Resources on finding (and trusting) exploit toolchains (i.e. the vulnerability testing repo).
+
+One major pain of this project was the arduous adventure to downgrade Java. The initial version of Java that was on
+the Pi was openJDK 25, but we wanted to downgrade it to Java 8 since we believed that would have made the attack
+easier to carry out. However, this turned out to be much more of a struggle than we had anticipated. We tried various
+methods, such as using additional plugins from Maven that we learned about from Stack Overflow posts and even
+restarting Maven on the Pi. Eventually, we learned from another Stack Overflow post that we had to install a Debian
+mirror (since we were using Raspbian on the Pi), which finally allowed us to downgrade to Java 8. It is difficult for us
+to pinpoint what the takeaway here exactly is. We knew we wanted a downgraded version of Java and we tried out
+several different strategies that seemed reasonable to us, only for those to fail. But at least now we know for next
+time what the ultimate solution is.
 
 \section{Conclusion}
 
